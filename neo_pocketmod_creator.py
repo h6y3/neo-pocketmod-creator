@@ -48,10 +48,10 @@ def create_pocketmod_pdf(input_file, output_file, margin_factor=None):
     """Create PocketMod PDF using PyMuPDF
     
     Layout pattern (corrected for proper folding):
-    TOP ROW:    [Page 1↻] [Page 6] [Page 7] [Page 8]
-    BOTTOM ROW: [Page 2] [Page 3] [Page 4] [Page 5]
+    TOP ROW:    [Page 5↻] [Page 4↻] [Page 3↻] [Page 2↻]
+    BOTTOM ROW: [Page 6] [Page 7] [Page 8] [Page 1]
     
-    Where Page 1 is rotated 180°, others are normal orientation.
+    Where top row pages are all rotated 180°, bottom row pages are normal orientation.
     """
     
     # Open input PDF
@@ -77,14 +77,14 @@ def create_pocketmod_pdf(input_file, output_file, margin_factor=None):
     
     # PocketMod layout mapping: (page_number, row, column, rotation_degrees)
     layout_map = [
-        (1, 0, 0, 180),  # Page 1: top-left, rotated 180°
-        (6, 0, 1, 0),    # Page 6: top-center-left, normal (blank if not exists)
-        (7, 0, 2, 0),    # Page 7: top-center-right, normal (blank if not exists)  
-        (8, 0, 3, 0),    # Page 8: top-right, normal (blank if not exists)
-        (2, 1, 0, 0),    # Page 2: bottom-left, normal
-        (3, 1, 1, 0),    # Page 3: bottom-center-left, normal
-        (4, 1, 2, 0),    # Page 4: bottom-center-right, normal
-        (5, 1, 3, 0)     # Page 5: bottom-right, normal
+        (5, 0, 0, 180),  # Page 5: top-left, rotated 180°
+        (4, 0, 1, 180),  # Page 4: top-center-left, rotated 180°
+        (3, 0, 2, 180),  # Page 3: top-center-right, rotated 180°  
+        (2, 0, 3, 180),  # Page 2: top-right, rotated 180°
+        (6, 1, 0, 0),    # Page 6: bottom-left, normal
+        (7, 1, 1, 0),    # Page 7: bottom-center-left, normal
+        (8, 1, 2, 0),    # Page 8: bottom-center-right, normal
+        (1, 1, 3, 0)     # Page 1: bottom-right, normal
     ]
     
     # Calculate scaling to fit pages in cells with margin

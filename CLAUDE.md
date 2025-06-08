@@ -32,12 +32,48 @@ python neo_pocketmod_creator.py input.pdf --margin-factor 1.015
 ```
 
 ### Testing
+
+#### Physical Print Testing
 Physical print testing is required for margin calibration:
 1. Generate a PocketMod PDF
 2. Print on Letter paper in landscape mode
 3. Fold according to PocketMod instructions
 4. Measure margins with a ruler
 5. Adjust parameters if needed
+
+#### Visual Layout Testing
+For layout algorithm development and verification:
+
+**Quick Test (Recommended):**
+```bash
+python test_layout.py
+```
+
+**Manual Testing:**
+```bash
+# Install testing dependencies (already in requirements.txt)
+pip install pdf2image pillow
+
+# Test layout with reference files
+python neo_pocketmod_creator.py test_files/original_plain.pdf -o test_output.pdf
+
+# Convert to images for visual comparison
+python -c "
+from pdf2image import convert_from_path
+# Convert test output
+output_images = convert_from_path('test_output.pdf', dpi=150)
+output_images[0].save('test_output.png', 'PNG')
+# Convert target reference
+target_images = convert_from_path('test_files/target_plain.pdf', dpi=150)
+target_images[0].save('target_reference.png', 'PNG')
+print('Images saved for visual comparison')
+"
+```
+
+**Test Files in `test_files/`:**
+- `original_plain.pdf`: 8-page input with numbered pages (1-8)
+- `target_plain.pdf`: Reference showing correct layout arrangement
+- See `test_files/README.md` for detailed documentation
 
 ## Architecture
 
@@ -49,10 +85,11 @@ Physical print testing is required for margin calibration:
 ### PocketMod Layout Algorithm
 The tool implements a specific page arrangement pattern:
 ```
-TOP ROW:    [Page 1↻] [Page 6] [Page 7] [Page 8]
-BOTTOM ROW: [Page 2]  [Page 3] [Page 4] [Page 5]
+TOP ROW:    [Page 5↻] [Page 4↻] [Page 3↻] [Page 2↻]
+BOTTOM ROW: [Page 6]  [Page 7]  [Page 8]  [Page 1]
 ```
-- Page 1 is rotated 180° for proper orientation after folding
+- Top row pages (5, 4, 3, 2) are all rotated 180° for proper orientation after folding
+- Bottom row pages (6, 7, 8, 1) are normal orientation
 - Output is Letter size (792×612 points) in landscape orientation
 - Uses 4×2 grid with precise scaling and positioning
 
