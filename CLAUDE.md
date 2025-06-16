@@ -10,28 +10,28 @@ Neo PocketMod Creator is a Python CLI tool that converts standard PDFs into Pock
 
 ### Setup and Dependencies
 
-**Recommended (pip install):**
+**End User Installation (Recommended):**
 ```bash
-# Install as editable package (creates 'pocketmod' command)
-pip install -e .
+# Install pipx (if not already installed)
+brew install pipx  # macOS
+# or: python -m pip install --user pipx  # other systems
 
-# Or install development dependencies
-pip install -e .[dev]
+# Install neo-pocketmod-creator globally
+pipx install .
 ```
 
-**Alternative (manual setup):**
+**Development Setup:**
 ```bash
-# Create virtual environment
+# Create virtual environment for development
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Install dependencies
-pip install -r requirements.txt
+# Install in editable mode with dev dependencies
+pip install -e .[dev]
 ```
 
 ### Running the Tool
 
-**After pip installation:**
 ```bash
 # Basic conversion
 pocketmod input.pdf
@@ -44,18 +44,7 @@ pocketmod input.pdf --print-margin 3.5
 pocketmod input.pdf --margin-factor 1.015
 ```
 
-**Manual setup:**
-```bash
-# Basic conversion
-python neo_pocketmod_creator.py input.pdf
-
-# With custom output name
-python neo_pocketmod_creator.py input.pdf -o output.pdf
-
-# With margin adjustments
-python neo_pocketmod_creator.py input.pdf --print-margin 3.5
-python neo_pocketmod_creator.py input.pdf --margin-factor 1.015
-```
+**Note:** Development setup users can substitute `python neo_pocketmod_creator.py` for `pocketmod` in the above commands.
 
 ### Testing
 
@@ -77,14 +66,11 @@ python test_layout.py
 
 **Manual Testing:**
 ```bash
-# Install testing dependencies (already in requirements.txt)
+# Install testing dependencies (if not already installed via [dev])
 pip install pdf2image pillow
 
-# Test layout with reference files (after pip install)
+# Test layout with reference files
 pocketmod test_files/original_plain.pdf -o test_output.pdf
-
-# Or manual setup
-python neo_pocketmod_creator.py test_files/original_plain.pdf -o test_output.pdf
 
 # Convert to images for visual comparison
 python -c "

@@ -25,64 +25,56 @@ Learn more about the folding technique at [pocketmod.com](https://pocketmod.com/
 ### Requirements
 
 - Python 3.7+
-- PyMuPDF (fitz)
 
-### Quick Install (Recommended)
+### End User Installation (Recommended)
+
+**Install globally with pipx:**
 
 ```bash
-# Clone the repository
+# Install pipx (if not already installed)
+brew install pipx                    # macOS
+# or: python -m pip install --user pipx  # Linux/Windows
+
+# Clone and install neo-pocketmod-creator
 git clone https://github.com/yourusername/neo-pocketmod-creator.git
 cd neo-pocketmod-creator
-
-# Install with pip (creates 'pocketmod' command globally)
-pip install .
-
-# Or for development (editable install)
-pip install -e .
+pipx install .
 ```
 
-After installation, you can use `pocketmod` from anywhere in your terminal.
+After installation, `pocketmod` is available globally in your terminal.
 
-### Manual Setup (Alternative)
+### Development Installation
+
+**For contributors and developers:**
 
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/neo-pocketmod-creator.git
 cd neo-pocketmod-creator
 
-# Create virtual environment (recommended)
+# Create virtual environment and install in editable mode
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
+pip install -e .[dev]
 ```
 
 ## Usage
 
 ### Basic Usage
 
-**After pip installation:**
 ```bash
 # Convert a PDF to PocketMod format
 pocketmod input.pdf
 
 # Specify output filename  
 pocketmod input.pdf -o my_pocketmod.pdf
-```
 
-**Manual setup:**
-```bash
-# Convert a PDF to PocketMod format
-python neo_pocketmod_creator.py input.pdf
-
-# Specify output filename  
-python neo_pocketmod_creator.py input.pdf -o my_pocketmod.pdf
+# Get help
+pocketmod --help
 ```
 
 ### Advanced Options
 
-**After pip installation:**
 ```bash
 # Fine-tune print margins
 pocketmod input.pdf --print-margin 3.5  # 3.5mm margins
@@ -91,24 +83,9 @@ pocketmod input.pdf --print-margin 2.0  # Tighter margins
 # Direct margin factor control (for developers)
 pocketmod input.pdf --margin-factor 1.015  # Less margin
 pocketmod input.pdf --margin-factor 1.025  # More margin
-
-# Get help
-pocketmod --help
 ```
 
-**Manual setup:**
-```bash
-# Fine-tune print margins
-python neo_pocketmod_creator.py input.pdf --print-margin 3.5  # 3.5mm margins
-python neo_pocketmod_creator.py input.pdf --print-margin 2.0  # Tighter margins
-
-# Direct margin factor control (for developers)
-python neo_pocketmod_creator.py input.pdf --margin-factor 1.015  # Less margin
-python neo_pocketmod_creator.py input.pdf --margin-factor 1.025  # More margin
-
-# Get help
-python neo_pocketmod_creator.py --help
-```
+**Note:** Development setup users can substitute `python neo_pocketmod_creator.py` for `pocketmod` in the above commands.
 
 ### Output
 

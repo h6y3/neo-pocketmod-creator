@@ -1,5 +1,0 @@
-PyMuPDF>=1.23.0
-
-# Testing dependencies for visual layout verification
-pdf2image>=1.17.0
-pillow>=11.0.0
