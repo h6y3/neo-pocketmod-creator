@@ -9,6 +9,17 @@ Neo PocketMod Creator is a Python CLI tool that converts standard PDFs into Pock
 ## Development Commands
 
 ### Setup and Dependencies
+
+**Recommended (pip install):**
+```bash
+# Install as editable package (creates 'pocketmod' command)
+pip install -e .
+
+# Or install development dependencies
+pip install -e .[dev]
+```
+
+**Alternative (manual setup):**
 ```bash
 # Create virtual environment
 python -m venv venv
@@ -19,6 +30,21 @@ pip install -r requirements.txt
 ```
 
 ### Running the Tool
+
+**After pip installation:**
+```bash
+# Basic conversion
+pocketmod input.pdf
+
+# With custom output name
+pocketmod input.pdf -o output.pdf
+
+# With margin adjustments
+pocketmod input.pdf --print-margin 3.5
+pocketmod input.pdf --margin-factor 1.015
+```
+
+**Manual setup:**
 ```bash
 # Basic conversion
 python neo_pocketmod_creator.py input.pdf
@@ -54,7 +80,10 @@ python test_layout.py
 # Install testing dependencies (already in requirements.txt)
 pip install pdf2image pillow
 
-# Test layout with reference files
+# Test layout with reference files (after pip install)
+pocketmod test_files/original_plain.pdf -o test_output.pdf
+
+# Or manual setup
 python neo_pocketmod_creator.py test_files/original_plain.pdf -o test_output.pdf
 
 # Convert to images for visual comparison
